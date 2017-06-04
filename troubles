@@ -1,0 +1,9 @@
+react-native start 
+
+/proc/sys/fs/inotify/max_user_instances impacts how many different root dirs you can watch.
+/proc/sys/fs/inotify/max_user_watches impacts how many dirs you can watch across all watched roots.
+
+watchman watch-del-all
+watchman shutdown-server
+
+
