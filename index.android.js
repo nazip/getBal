@@ -1,53 +1,30 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { AppRegistry } from 'react-native';
+import { Router, Scene } from 'react-native-router-flux';
+import { Provider } from 'react-redux';
+import createStore from './src/components/redux/store';
+import Main from './src/components/scenes/main';
+import Options from './src/components/scenes/options';
+import Balans from './src/components/scenes/balans';
+import DebitMonth from './src/components/scenes/debitMonth';
+
+const store = createStore();
 
 export default class getBal extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-           Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
+      <Provider store={store}>
+        <Router>
+          <Scene key="root">
+            <Scene key="main" component={Main} title="Главная страница" initial={true} />
+            <Scene key="options" component={Options} title="Настройки" />
+            <Scene key="balans" component={Balans} title="Баланс карты" />
+            <Scene key="debitMonth" component={DebitMonth} title="Выборка за тек. месяц" />
+          </Scene>
+        </Router>
+      </Provider>
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('getBal', () => getBal);
